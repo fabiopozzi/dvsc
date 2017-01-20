@@ -1,3 +1,4 @@
+require 'sinatra'
 require 'csv'
 require 'date'
 
@@ -24,4 +25,9 @@ end
 # puts tim_array.compact
 
 dati_dicembre = filter_by_month(Date.new(2016, 12, 1), data)
-puts dati_dicembre
+numero_entry_dicembre = dati_dicembre.count
+
+get '/pippo' do
+  "<h1>Entry dicembre #{numero_entry_dicembre}</h1>"
+end
+
