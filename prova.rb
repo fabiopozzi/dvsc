@@ -23,11 +23,14 @@ end
 # filtro per nome titolo
 # tim_array = data.map{ |x| x if x[:titolo] == 'tim' }
 # puts tim_array.compact
+dati_mese = []
 
-dati_dicembre = filter_by_month(Date.new(2016, 12, 1), data)
-numero_entry_dicembre = dati_dicembre.count
+(1..12).each do |i|
+dati_mese << filter_by_month(Date.new(2016, i, 1), data).count
+end
 
-get '/pippo' do
-  "<h1>Entry dicembre #{numero_entry_dicembre}</h1>"
+get '/' do
+  @titolo = "Antani"
+  erb :index, :locals => {:dati_mese => dati_mese}
 end
 
