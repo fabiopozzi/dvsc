@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'csv'
 require 'date'
+require 'chartkick'
 
 # takes a date and data array
 # returns a new array containing rows with matching year and month
@@ -13,7 +14,7 @@ end
 
 data = []
 
-CSV.foreach('aaa.csv', col_sep: ';', headers: true) do |row|
+CSV.foreach('./dati/aaa.csv', col_sep: ';', headers: true) do |row|
   t = {}
   t[:titolo] = row['Titolo']
   t[:data] = Date.strptime(row['Data'], "%d\/%m\/%Y")
@@ -26,7 +27,7 @@ end
 dati_mese = []
 
 (1..12).each do |i|
-dati_mese << filter_by_month(Date.new(2016, i, 1), data).count
+dati_mese << [i, filter_by_month(Date.new(2016, i, 1), data).count]
 end
 
 get '/' do
