@@ -6,10 +6,9 @@ require 'chartkick'
 # takes a date and data array
 # returns a new array containing rows with matching year and month
 def filter_by_month(date, records)
-  records.map do |x|
-    x if x[:data].month == date.month &&
-         x[:data].year == date.year
-  end.compact
+  records.select do |x|
+    x[:data].month == date.month && x[:data].year == date.year
+  end
 end
 
 data = []
