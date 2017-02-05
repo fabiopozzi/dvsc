@@ -28,13 +28,19 @@ def numero_entry_per_mese records
   dati_mese
 end
 
-CSV.foreach('./dati/aaa.csv', col_sep: ';', headers: true) do |row|
-  t = {}
-  t[:titolo] = row['Titolo']
-  t[:data] = Date.strptime(row['Data'], "%d\/%m\/%Y")
-  data << t
+def load_csv_file filename
+  data = []
+  CSV.foreach(filename, col_sep: ';', headers: true) do |row|
+    t = {}
+    t[:titolo] = row['Titolo']
+    t[:data] = Date.strptime(row['Data'], "%d\/%m\/%Y")
+    t[:categoria] = row['Categoria principale']
+    data << t
+  end
+  data
 end
 
+dati_grezzi = load_csv_file('./dati/aaa.csv')
 # filtro per nome titolo
 # tim_array = data.map{ |x| x if x[:titolo] == 'tim' }
 # puts tim_array.compact
