@@ -44,14 +44,12 @@ dati_grezzi = load_csv_file('./dati/aaa.csv')
 # filtro per nome titolo
 # tim_array = data.map{ |x| x if x[:titolo] == 'tim' }
 # puts tim_array.compact
-dati_mese = []
+dati_mese = numero_entry_per_mese dati_grezzi
 
-(1..12).each do |i|
-dati_mese << [i, filter_by_month(Date.new(2016, i, 1), data).count]
-end
+totale_hobby_per_mese dati_grezzi
 
 get '/' do
-  @titolo = "Antani"
+  @titolo1 = "Numero entry per mese"
   erb :index, :locals => {:dati_mese => dati_mese}
 end
 
