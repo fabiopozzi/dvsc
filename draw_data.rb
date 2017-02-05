@@ -11,7 +11,22 @@ def filter_by_month(date, records)
   end
 end
 
-data = []
+def totale_hobby_per_mese records
+  (1..12).each do |i|
+    d = filter_by_month(Date.new(2016, i, 1), records)
+    hobby = d.select { |x| x[:categoria] == "Sport e tempo libero" }
+    puts hobby.inspect
+  end
+end
+
+def numero_entry_per_mese records
+  dati_mese = []
+
+  (1..12).each do |i|
+    dati_mese << [i, filter_by_month(Date.new(2016, i, 1), records).count]
+  end
+  dati_mese
+end
 
 CSV.foreach('./dati/aaa.csv', col_sep: ';', headers: true) do |row|
   t = {}
